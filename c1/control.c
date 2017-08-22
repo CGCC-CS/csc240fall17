@@ -56,6 +56,7 @@ int main (void)
  
   printf ("\nBreak example : \n");
   while (1) { 
+      /* If a is bigger than 100 quit the loop */
       if (a > 100) {
           printf ("  Breaking . . \n");
           break;
@@ -67,6 +68,7 @@ int main (void)
  
   printf ("\nContinue example : \n");
   for (ii=0;ii<=b;ii++) {
+      /* If ii is not a multiple of 3 then go to next loop iteration */
       if ( (ii % 3) != 0) {
           continue; 
       }

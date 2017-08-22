@@ -2,7 +2,7 @@
 
 int main() {
   int x = 59;
-  int y = 0x0A;
+  int y = 0x0A;   /* Hexidecimal format */
   int z;
   char c = 'A';
   char k = 66;
