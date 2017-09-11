@@ -3,8 +3,8 @@
 /* Forward declarations */
 void say_hello();
 int add_ten(int);
-void add_twenty(int *x);
-int add_array(int a[], int len);
+void add_twenty(int *);
+int add_array(int[], int);
 
 int main() {
   int a = 5;

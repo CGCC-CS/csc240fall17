@@ -12,6 +12,7 @@ int main() {
   printf("z: %10d, %p, %d\n", z, (void *) &z, sizeof(z));
   printf("p: %10p, %p, %d, *p=%d\n", (void *) p, (void *) &p, sizeof(p), *p);
 
+
   *p=12;
   printf("\nAfter *p=12:\n");
   printf("x: %10d, %p, %d\n", x, (void *) &x, sizeof(x));
@@ -40,8 +41,9 @@ int main() {
   printf("z: %10d, %p, %d\n", z, (void *) &z, sizeof(z));
   printf("p: %10p, %p, %d, *p=%d\n", (void *) p, (void *) &p, sizeof(p), *p);
 
-  printf("\nAfter (*(++p))++:\n");
+
   (*(++p))++;
+  printf("\nAfter (*(++p))++:\n");
   printf("x: %10d, %p, %d\n", x, (void *) &x, sizeof(x));
   printf("y: %10d, %p, %d\n", y, (void *) &y, sizeof(y));
   printf("z: %10d, %p, %d\n", z, (void *) &z, sizeof(z));
