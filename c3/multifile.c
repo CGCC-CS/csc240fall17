@@ -1,8 +1,8 @@
 #include<stdio.h>
 #include"mystuff.h"
 
-/* to compile:
-      gcc -ansi -pedantic -Wall multifile.c mystuff.c
+/* To compile:
+    gcc -ansi -pedantic -Wall multifile.c mystuff.c
 */
 
 int main() {

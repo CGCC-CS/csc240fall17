@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include"basiclist.h"
 
+/* To run as a test: 
+    gcc -ansi -pedantic -Wall basiclist.c -DTEST
+*/
+
 int list_add(node_t ** list, void * data) {
   int ret = 0;
   node_t * newnode = (node_t *) malloc(sizeof(node_t));
@@ -12,8 +16,8 @@ int list_add(node_t ** list, void * data) {
   else {
     newnode->data = data;
     newnode->next = *list;
+    *list = newnode;
   }
-  *list = newnode;
   return ret;
 }
 
