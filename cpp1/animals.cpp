@@ -1,138 +1,114 @@
 #include<iostream>
+#include<string>
 
 using namespace std;
 
 class Animal {
-  public: 
-    // Pure virtual method - must be overridden by any non-abstract 
+  protected:
+    string n;
+  public:
+    Animal(string s="Animal") {n = s;}   // default value = Animal
+ 
+    // Pure virtual method - must be overridden by any non-abstract
     //   derrived class.
     virtual void speak() = 0;
 
-    // Virtual method - can be overridden by the derrived class.  The type of
+    // Virtual method - can be overridden by the child class.  The type of
     //   the object being pointed to determines the method that gets called.
-    virtual void move() {
-       cout << "I'm moving" << endl;
-    }
+    virtual void move() { cout << "I'm moving" << endl; }
 
-    // Non-virtual method - can be overridden by the derrived class.  The 
+    // Non-virtual method - can be overridden by the child class.  The 
     //   type of the pointer determines the method that gets called.
-    void name() {
-       cout << "Animal" << endl;
-    }
+    void name() { cout << n << endl; }
 };
 
 class Dog : public Animal {
   public:
-    void speak() {
-       cout << "Woof!" << endl;
-    }
-
-    void move() {
-       cout << "Run around." << endl;
-    }
-
-    void name() {
-       cout << "Fluffy" << endl;
-    }
-
-    void fetch() {
-       cout << "Fetching!" << endl;
-    }
+    Dog(string s="") : Animal(s) {}
+    void speak() { cout << "Woof" << endl; }
+    void move() { cout << "Run around." << endl; }
+    void fetch() { cout << "Fetching!" << endl; }
 };
 
 class Cat : public Animal {
   public:
-    void speak() {
-       cout << "Meow." << endl;
-    }
-
-    void name() {
-       cout << "Snowflake" << endl;
-    }
-
+    Cat(string s="") : Animal(s) {}
+    void speak() { cout << "Meow" << endl; }
 };
 
-int main () {
-  /*Animal a;*/
-  Animal *a1;
-  Dog d1, *d2;
-  Cat c1, *c2;
+int main() {
+  // Animal a;   // Can't instantiate abstract type
+  //Animal *aptr; 
+  Animal *danimal, *canimal;
+  Dog d("Lassie");
+  Dog *dptr = &d;
+  Cat c("Lucy");
+  Cat *cptr = &c;
 
   // References
-  Animal & animalRef = d1; 
-  Cat & catRef = c1;
+  Animal & animalRef = d;
+  Cat & catRef = c;
 
-  /* Cannot instantiate an abstract class 
-  cout << "Animal object: " << endl;
+  /* Animal is abstract - can't instantiate 
+  cout << "Animal object:" << endl;
   a.speak();
   a.move();
   a.name();
+
+  aptr = new Animal("Anotherone");
+  cout << endl << "Animal pointer to Animal object:" << endl;
+  aptr->speak();
+  aptr->move();
+  aptr->name();
   */
 
-  /*
-  cout << endl << "Animal pointer pointing to animal object: " << endl;
-  a1 = new Animal();
-  a1->speak();
-  a1->move();
-  a1->name();
-  */
+  cout << endl << "Dog object:" << endl;
+  d.speak();
+  d.move();
+  d.name();
+  d.fetch();
 
-  cout << endl << "Dog object: " << endl;
-  d1.speak();
-  d1.move();
-  d1.name();
+  cout << endl << "Dog pointer to Dog object:" << endl;
+  dptr->speak();
+  dptr->move();
+  dptr->name();
+  dptr->fetch();
 
-  cout << endl << "Dog pointer pointing to dog object: " << endl;
-  d2 = new Dog();
-  d2->speak();
-  d2->move();
-  d2->name();
-  d2->fetch();
+  danimal = &d;
+  cout << endl << "Animal pointer to Dog object:" << endl;
+  danimal->speak();
+  danimal->move();
+  danimal->name();
+  // danimal->fetch();   Animal pointer can't reference dog methods
 
-  cout << endl << "Animal pointer pointing to dog object: " << endl;
-  a1 = &d1;
-  a1->speak();
-  a1->move();
-  a1->name();
-
-  cout << endl << "Animal reference referring to dog object: " << endl;
+  cout << endl << "Animal reference to Dog object:" << endl;
   animalRef.speak();
   animalRef.move();
   animalRef.name();
 
-  cout << endl << "Cat object: " << endl;
-  c1.speak();
-  c1.move();
-  c1.name();
+  cout << endl << "Cat object:" << endl;
+  c.speak();
+  c.move();
+  c.name();
 
-  cout << endl << "Cat pointer pointing to cat object: " << endl;
-  c2 = new Cat();
-  c2->speak();
-  c2->move();
-  c2->name();
+  cout << endl << "Cat pointer to Cat object:" << endl;
+  cptr->speak();
+  cptr->move();
+  cptr->name();
 
-  cout << endl << "Cat reference referring to cat object: " << endl;
+  cout << endl << "Cat reference to Cat object:" << endl;
   catRef.speak();
   catRef.move();
   catRef.name();
 
-  cout << endl << "Animal pointer pointing to cat object: " << endl;
-  a1 = &c1;
-  a1->speak();
-  a1->move();
-  a1->name();
+  canimal = &c;
+  cout << endl << "Animal pointer to Cat object:" << endl;
+  canimal->speak();
+  canimal->move();
+  canimal->name();
+
+  cout << endl << "Cat object:" << endl;
+  c.speak();
 
   return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
