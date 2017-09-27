@@ -1,4 +1,4 @@
-#include<iostream>
+#include <iostream>
 
 using namespace std;
 
@@ -20,17 +20,17 @@ class myClass {
     cout << "  Constructor " << b << ": " << *a << " (" << a << ")" << endl;
   }
 
-  // Copy constructor
+  // Copy Constructor
   myClass(const myClass& original) {
     a = new int;
     *a = *(original.a);
-    b = original.b * 10; 
-    cout << "  Copy constructor " << b << ": " << *a << " (" << a << ")" << endl;
+    b = original.b * 10;   // Give it a new object number
+    cout << "  Copy Constructor " << b << ": " << *a << " (" << a << ")" << endl;
   }
 
   // Destructor
   ~myClass() {
-    cout << "  Destructor " << b << ": " << *a << " (" << a << ")" << endl;
+    cout << "  Destructor " << b << ": " << *a << " (" << a << ")" << endl; 
     delete a;
     a = nullptr;
   }
@@ -53,11 +53,12 @@ void func(myClass k) {
   cout << "    ++++++++++++  end func  ++++++++++++ " << endl;
 }
 
-int main () {
+int main() {
   cout << "MAIN: start" << endl;
   cout << "MAIN: begin declare c1" << endl;
   myClass c1(1);
   cout << "MAIN: done declare c1" << endl;
+
   cout << "MAIN: begin declare *c2" << endl;
   myClass *c2;
   cout << "MAIN: done declare *c2" << endl;
@@ -71,11 +72,12 @@ int main () {
 
   cout << "MAIN: begin delete *c2" << endl;
   delete c2;
-  cout << "MAIN: done delete *c2" << endl;
+  cout << "MAIN: done delete *c2" << endl; 
 
   cout << "MAIN: print c1 after function call" << endl;
   c1.print("end of main");
+  cout << "MAIN: done print c1 after function call" << endl;
 
-  cout << "MAIN: exit" << endl;
-  return 0;
+
+  return 0; 
 }
