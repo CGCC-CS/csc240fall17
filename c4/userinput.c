@@ -14,6 +14,7 @@ int main ()
   printf ("What is your name: ");
   fgets(buffer, BUFFLEN, stdin);
   strncpy(name, buffer, BUFFLEN);
+  fflush(stdout);
 
   /* Prompt for address, read user input, copy to name string */
   printf ("What is your address: ");

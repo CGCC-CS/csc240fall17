@@ -4,8 +4,8 @@ using namespace std;
 
 class MyBase {
   public:
-    MyBase() { cout << "  MyBase Constructor " << endl; }
-    virtual ~MyBase() { cout << "  MyBase Destructor " << endl; }
+    MyBase() { cout << "  MyBase constructor " << endl; }
+    virtual ~MyBase() { cout << "  MyBase destructor " << endl; }
 };
 
 class MyClass : public MyBase {
@@ -24,24 +24,24 @@ class MyClass : public MyBase {
 };
 
 int main() {
-  cout <<"MAIN: start" << endl;
-  cout <<"MAIN: declare c1 - start" << endl;
+  cout << "MAIN: start" << endl;
+  cout << "MAIN: declare c1 (MyClass) - start" << endl;
   MyClass c1(1);
-  cout <<"MAIN: declare c1 - done" << endl;
+  cout << "MAIN: declare c1 (MyClass) - end" << endl;
 
-  cout <<"MAIN: declare c2 (MyBase *) - start" << endl;
+  cout << "MAIN: declare c2 (MyBase *) - start" << endl;
   MyBase * c2;
-  cout <<"MAIN: declare c2 (MyBase *) - done" << endl;
+  cout << "MAIN: declare c2 (MyBase *) - end" << endl;
 
-  cout <<"MAIN: allocate c2 (MyClass) - start" << endl;
+  cout << "MAIN: allocate c2 (MyClass) - start" << endl;
   c2 = new MyClass(2);
-  cout <<"MAIN: allocate c2 (MyClass) - done" << endl;
+  cout << "MAIN: allocate c2 (MyClass) - end" << endl;
 
-  cout <<"MAIN: call c2 destructor - start" << endl;
+  cout << "MAIN: delete c2 (MyBase * to MyClass) - start" << endl;
   delete(c2);
-  cout <<"MAIN: call c2 destructor - done" << endl;
+  c2 = nullptr;
+  cout << "MAIN: delete c2 (MyBase * to MyClass) - end" << endl;
 
-  cout <<"MAIN: end" << endl;
+  cout << "MAIN: end" << endl;
   return 0;
 }
-

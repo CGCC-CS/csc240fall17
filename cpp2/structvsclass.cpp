@@ -1,3 +1,4 @@
+
 #include<iostream>
 #include<string>
 #include<string.h>
@@ -25,7 +26,6 @@ class myClass {
 int main() {
   struct myStruct str = {7, "Hello"};
   myClass cls(15, "World");
-  struct myStruct * p = &str;
   char * c = (char *) &str;
   char * k = (char *) &cls;
 
@@ -34,7 +34,7 @@ int main() {
   cout << " myClass size=" << sizeof(myClass) << "  a=" << cls.a <<
               "  c=" << cls.c << endl;
 
-  int ii;
+  unsigned int ii;
   cout <<"myStruct: " << endl;
   for(ii=0;ii<sizeof(myStruct);ii++) {
      printf("%3d: %5c %5x %5d\n", ii, *(c+ii), *(c+ii), *(c+ii));
