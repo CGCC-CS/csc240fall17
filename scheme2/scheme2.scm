@@ -1,4 +1,5 @@
 #lang scheme
+
 (define a 1)
 (define b a)
 (define c (+ a b))
@@ -14,9 +15,12 @@ c
 (opposite -10)
 (opposite (opposite 12))
 
+(newline)
+"null"
 null
 (null? 3)
 (null? 0)
+;(null? ())
 (null? '())
 
 (newline)
@@ -26,27 +30,36 @@ null
     (fib-tail-acc x 0 1)))
 (define fib-tail-acc
   (lambda (x f2 f1)
-    (if (<= x 1)
-        f1
+    (if (<= x 2)
+        (+ f1 f2)
         (fib-tail-acc (- x 1) f1 (+ f1 f2)))))
 (fib-tail 1)
 (fib-tail 3)
 (fib-tail 10)
 
 (newline)
+"Elements in a list"
 (define isit-lst0 (+ 2 3))
 (define isit-lst1 '(+ 2 3))
 (define isit-lst2 (list + 2 3))
+(define isit-lst3 (list (+ 2 3)))
+(define isit-lst4 (list '(+ 2 3)))
 isit-lst0
 isit-lst1
 isit-lst2
+isit-lst3
+isit-lst4
+
 ((car isit-lst2) 8 9 10)
-;lst2 -> (list + 2 3)
-;      +                   2                       3
-((car isit-lst2) (car (cdr isit-lst2)) (car (cdr (cdr isit-lst2))))
+;((car isit-lst1) 8 9 10)
+
 ;      '+                   '2                       '3
 ;((car isit-lst1) (car (cdr isit-lst1)) (car (cdr (cdr isit-lst1))))
+;      +                   2                       3
+((car isit-lst2) (car (cdr isit-lst2)) (car (cdr (cdr isit-lst2))))
 
+(newline)
+"More lists"
 (define exlst0 (list 2 3))
 (define exlst1 (list list 2 3))
 (define exlst2 (list list 2 3 (list + 2 3) (+ 2 3)))
@@ -56,7 +69,8 @@ exlst1
 exlst2
 exlst3
 
-(newline)"Conditional"
+(newline)
+"Conditional"
 (define what-is-it?
   (lambda (x)
     (cond
@@ -69,26 +83,20 @@ exlst3
 (what-is-it? 0)
 (what-is-it? 5)
 
-; First true statement matches
 (define return-something
-  (lambda(x)
+  (lambda (x)
     (cond
-      ((> x 10) 10)
+      ((> x 11) 10)
       ((= (remainder x 2) 0) 2)
       ((> x 5) 5)
       (else 0))))
-(return-something 26)
+(return-something 20)
+(return-something 8)
+(return-something 7)
+(return-something 3)
 
-(newline)"Math"
-(/ 30 7)
-(/ 30 7.0)
-(quotient 30 7)
-(remainder 30 7)
-(expt 2 10)
-(sqrt 4)
-(sqrt -3)
-
-(newline)"Boolean"
+(newline)
+"Boolean"
 (< 4 10)
 (> 4 10)
 (<= 4 10)
@@ -97,22 +105,11 @@ exlst3
 (or #t #f)
 (and #t #f)
 (xor #t #f)
-(or (integer? 6) (symbol? 'six))
-(and (integer? 6) (symbol? 6))
+(or (not (integer? 6)) (symbol? 'six))
+(and (integer? 6) (symbol? '6))
 
-(newline) "Strings vs Symbols"
-(define str1 "Hello")
-(define sym1 'World)
-str1 
-sym1
-(string? str1)
-(string? sym1)
-(symbol? str1)
-(symbol? sym1)
-(string->symbol str1)
-(symbol->string sym1)
-
-(newline)"Procedures are first-class objects"
+(newline)
+"Procedures are first-class objects"
 (define do-to-10-20
   (lambda (x)
     (x 10 20)))
@@ -120,24 +117,27 @@ sym1
 (do-to-10-20 *)
 (do-to-10-20 (lambda (x y) (sqrt (+ (* x x) (* y y)))))
 ;(do-to-10-20 fib-tail)
+;(do-to-10-20 fib-tail 10)
 (do-to-10-20 (lambda (x y) (fib-tail x)))
 (do-to-10-20 list)
 
-(newline)"Lists"
+
+(newline)
+"Lists"
 (car '(a))
 (cdr '(a))
 (define lst '(1 2 3 4))
+lst
 (car lst)
 (cdr lst)
 (cons 0 lst)
 (car (cons 0 lst))
 (cdr (cons 0 lst))
-(car (cdr lst))
 (cons '(a b c) lst)
 (cons lst lst)
 (append '(a b c) lst)
 ;(append 0 lst)
-(append lst lst)
+
 "Complex list"
 (define lstx '((1 2) 3 (4 (5 6)) (7 8 9)))
 (car lstx)
@@ -163,9 +163,10 @@ sym1
 (define go-deep
   (lambda (lst)
     (car (cdr (cdr (car (cdr (cdr (cdr lstx)))))))))
-(go-deep lst)
+(go-deep lstx)
 
-(newline)"List functions"
+(newline)
+"List procedures"
 lst
 (define non-empty-list?
   (lambda (lst)
@@ -179,8 +180,8 @@ lst
 (define sumlist
   (lambda (lst)
     (if (or (not (list? lst)) (empty? lst))
-         0
-         (+ (car lst) (sumlist (cdr lst))))))
+        0
+        (+ (car lst) (sumlist (cdr lst))))))
 (sumlist lst)
 
 (define do-nothing
@@ -190,15 +191,15 @@ lst
         (cons (car lst) (do-nothing (cdr lst))))))
 (do-nothing lst)
 
-; double all items in a list
-(define double (lambda(x) (* x 2)))
+"Double all items in a list"
+(define double (lambda (x) (* x 2)))
 (define doublelist
   (lambda (lst)
     (if (null? lst)
         '()
         (cons (double (car lst)) (doublelist (cdr lst))))))
 (doublelist lst)
-  
+
 (define sum-doublelist
   (lambda (lst)
     (if (null? lst)
@@ -212,7 +213,7 @@ lst
         lst
         (sumlist (doublelist lst)))))
 (better-sum-doublelist lst)
- 
+
 (define allnums
   (lambda (lst)
     (if (not (non-empty-list? lst))
@@ -221,22 +222,32 @@ lst
             (allnums (cdr lst))
             (cons (car lst) (allnums (cdr lst)))))))
 (allnums 'numbers)
-(allnums '(1 2 3 4))
-(allnums '(a b c 1 2 3 'Hello '(4 5 6)))
-(sum-doublelist (allnums '(a b c 1 2 3 'Hello '(4 5 6))))
+(allnums '('hello 'world))
+(allnums '(a b c 1 2 3 'hello '(4 5 6) + -))
+(sum-doublelist (allnums '(a b c 1 2 3 'hello '(4 5 6) + -)))
 
-(newline)"Pair"
+(newline)
+"Pairs"
 (cons 1 2)
 (cons 1 '(2))
-(pair? 'pair)
+(car '(1 . 2))
+(cdr '(1 . 2))
 (pair? '(1 . 2))
 (pair? '(1 2))
-(define pair '(a . b))    ; [a . b]
-(define pairlist '(a b))  ; [a . [b . ()]]
-(car pair)
-(cdr pair)
+(define pair1 '(a . b))     ; [a . b]
+(define pair2 '(a . (b)))
+(define pairlist '(a b))    ; [a . [b . ()]]
+pair1
+pair2
+pairlist
+(car pair1)
+(cdr pair1)
 (car pairlist)
 (cdr pairlist)
 (cons 'a 'b)
 (cons 'b '())
 (cons 'a (cons 'b '()))
+
+
+
+
