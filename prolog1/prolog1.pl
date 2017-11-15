@@ -7,12 +7,9 @@ mother(ruwee, padme).
 mother(padme, luke).
 mother(padme, leia).
 mother(leia, ben).
-
-alias(anakin,darthvader).
 alias(darthvader,anakin).
 alias(luke,lukeskywalker).
-alias(lukeskywalker,luke).
-alias(X,X).
+alias(X,Y) :- alias(Y,X).
 
 same(X,X).
 
@@ -27,73 +24,74 @@ weather(tempe, fall, hot).
 weather(newyork, summer, warm).
 weather(seattle, summer, cool).
 weather(buenasaires, winter, warm).
-%weather(X, Y) :- weather(X, Z, Y). 
+weather(City, Temp) :- weather(City, _Season, Temp).
+
+avg_temp(berlin, 49).
+avg_temp(karlsruhe, 60).
+avg_temp(paris, 55).
+avg_temp(belgrade, 52).
+avg_temp(chicago, 50).
+avg_temp(boston, 48).
+avg_temp(johannesburg, 55).
+avg_temp(phoenix, 80).
+avg_temp(jerusalem, 61).
+
+avg_temp_celsius(Location, C_temp) :-
+	avg_temp(Location, F_temp),
+	C_temp is round((F_temp - 32) * 5 / 9).
+
 
 baseball(summer).
 baseball(spring).
-play(X) :- weather(X, Z, Y), baseball(Z), reasonable(Y).
 reasonable(warm).
 reasonable(hot).
-
-ave_temp(berlin, 49).
-ave_temp(karlsruhe, 60).
-ave_temp(paris, 55).
-ave_temp(belgrade, 52).
-ave_temp(chicago, 50).
-ave_temp(boston, 48).
-ave_temp(johannesburg, 55).
-ave_temp(phoenix, 80).
-ave_temp(jerusalem, 61).
-ave_temp_celsius(Location, C_temp) :- ave_temp(Location, F_temp), C_temp is round((F_temp - 32) * 5 / 9).
-
+play(City) :- weather(City, Season, Temp), 
+	baseball(Season), 
+	reasonable(Temp).
 
 president(lincoln).
 president(kennedy).
 president(bush).
-president(bob).
 president(X) :- member(X,[washington, adams, jefferson]).
 
-score(tb, 4).
-score(bos, 1).
-won(X) :- score(X, ScoreX), score(Y, ScoreY), X \= Y, ScoreX >= ScoreY.
+score(spurs, 97).
+score(mavericks, 91).
+won(X) :- score(X, ScoreX), score(_Y, ScoreY), ScoreX > ScoreY.
+beatthespread(X) :- score(X, ScoreX), score(_Y, ScoreY), 
+	AdjScoreX is ScoreX - 6, AdjScoreX >= ScoreY.
 
 happy(bob).
 happy(alice).
 talkative(bob).
-
 annoying(jarjar).
-annoying(X) :- happy(X), talkative(X).
+annoying(X) :- talkative(X), happy(X).
 
-
-% robot AI
-badguy(darthvader).          % badguy/1
+% Robot AI
+badguy(darthvader).       % badguy/1
 badguy(darthmaul).
 badguy(kyloren).
-badguy(batman, twoface).     % badguy/2
+badguy(batman, twoface).  % badguy/2
 badguy(batman, joker).
 badguy(superman, lexluthor).
 fight(X) :- badguy(X).
-fight(X) :- badguy(_Superhero, X).
-% poor bob
+fight(X) :- badguy(_, X).
+% poor bob & alice!
 fight(X) :- annoying(X).
+fight(alice).
 
-%write output when file is consulted
-:- badguy(superman, X), write(['Superman has defeated ', X]), nl.
+%write outupt when file is consulted!
+:- badguy(superman, X), write('Superman has defeated '), write(X), nl.
+%:- badguy(wonderwoman, X), write('Superman has defeated '), write(X), nl.
 
-% is_integer
-is_integer(0) :- !.
-is_integer(X) :- Y is X - 1, is_integer(Y).
 
 % equation A + B = C
 equation(A, B, C) :- 
-%	same(Integer, [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]),
-%	member(A, Integer),
-%	member(B, Integer),
-    is_integer(A),
-    is_integer(B),
+	same(Integer, [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]),
+	member(A, Integer), 
+	member(B, Integer), 
 	C is A + B.
 
 
-
-
+is_integer(0) :- !.
+is_integer(X) :- Y is X - 1, is_integer(Y).
 
