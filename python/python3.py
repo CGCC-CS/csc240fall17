@@ -1,15 +1,18 @@
 #!/usr/bin/python3
 '''
-    Multi-line
-    Comment
+   Multi-line
+   comment
 '''
 
 # Single line comment
-print('Hello, world!')
+print("Hello, world!")
 
 # Variables
+
 a = 10
-s = 'Hi!'
+print(a)
+a = 'Hi!'
+print(a)
 
 # Strings
 str1 = "This is a string."
@@ -20,15 +23,18 @@ print(str1 + '  ' + str2)
 # Lists
 lst = [1, 2, 3, 4, 5]
 lst.append(6)
-lst2 = [1, 'Hello', a, 4]
-
-print('\nContents of list:')
-# Blocks are indicated by indention (be careful to be consistent with tabs / spaces!)
-output = ''
-for thing in lst:
-    output = output + str(lst)
 print(lst)
-print('lst = {0} '.format(lst))
+
+lst2 = [1, 'Hello', a, 4]
+print(lst2)
+
+print('\nContents of lst:')
+output=''
+for thing in lst:
+    output = output + str(thing)
+print(output)
+print('lst = {0}'.format(lst))
+
 for thing in lst2:
     print(thing)
 
@@ -38,15 +44,16 @@ print(lst[3:])
 print(lst[2:4])
 print(lst[::-1])
 
-# List comprehensions
+# List comprehension
 evens = [x for x in lst if x % 2 == 0]
-print ('Evens: {0}'.format(evens))
+print('Evens: {0}'.format(evens))
 
-# Functions
+# Function
 def fact(n):
     if n < 1:
         return 1
-    return n * fact(n-1)
+    else:
+        return n * fact(n-1)
 
 def get_evens(lst):
     return [x for x in lst if x % 2 == 0]
@@ -58,6 +65,7 @@ def do_something(something, x):
 do_something(print, 'First-class objects')
 fact10 = do_something(fact, 10)
 print('10! = {0}'.format(fact10))
+
 
 # Decorators
 def does_it_have_any(func):
